@@ -1,0 +1,88 @@
+[keyboard]
+name = "Hallie"
+product_name = "Hallie"
+vendor_id = 0x4c4b
+product_id = 0x4643
+manufacturer = "Splitted.Space"
+chip = "nrf52840"
+
+[layout]
+rows = 4
+cols = 12
+layers = 3
+matrix_map = """
+(0, 0, L)  (0, 1, L)  (0, 2, L)  (0, 3, L)  (0, 4, L)  (0, 5, L)        (0, 6, R)  (0, 7, R)  (0, 8, R)  (0, 9, R)  (0, 10, R)  (0, 11, R)
+(1, 0, L)  (1, 1, L)  (1, 2, L)  (1, 3, L)  (1, 4, L)  (1, 5, L)        (1, 6, R)  (1, 7, R)  (1, 8, R)  (1, 9, R)  (1, 10, R)  (1, 11, R)
+(2, 0, L)  (2, 1, L)  (2, 2, L)  (2, 3, L)  (2, 4, L)  (2, 5, L)        (2, 6, R)  (2, 7, R)  (2, 8, R)  (2, 9, R)  (2, 10, R)  (2, 11, R)
+                                 (3, 3, L)  (3, 4, L)  (3, 5, L)        (3, 6, R)  (3, 7, R)  (3, 8, R)
+"""
+
+[[layer]]
+name = "base_layer"
+keys = """
+ESC     Q     W     E     R      T            Y     U      I      O     P          BSPC
+TAB     A     S     D     F      G            H     J      K      L     SEMICOLON  QUOT
+LSHIFT  Z     X     C     V      B            N     M      COMMA  DOT   SLASH      RSHIFT
+                    LCTRL SPACE  NO           NO    ENTER  LALT
+"""
+encoders = [["AudioVolDown","AudioVolUp"], ["MouseWheelDown", "MouseWheelUp"]]
+
+[ble]
+enabled = true
+battery_adc_pin = "P0_02"
+adc_divider_measured = 2000
+adc_divider_total = 2806
+# Set the BLE tx power; higher means better signal but more power consumption. For nRF52840 the maximum tx power is 8.
+default_tx_power = 2
+# Whether to enable 2M PHY, defaults to true.
+ble_use_2m_phy = true
+
+[split]
+connection = "ble"
+
+[split.central]
+rows = 4
+cols = 6
+row_offset = 0
+col_offset = 0
+
+[split.central.matrix]
+row_pins = ["P0_28", "P0_31", "P0_30", "P0_17"]
+col_pins = ["P0_05", "P1_09", "P0_08", "P0_12", "P0_07", "P0_15"]
+col2row = true
+debouncer = "fast"
+
+[[split.central.input_device.encoder]]
+pin_a = "P0_22"
+pin_b = "P1_00"
+phase = "resolution"
+resolution = 3
+internal_pullup = true
+
+[[split.peripheral]]
+rows = 4
+cols = 6
+row_offset = 0
+col_offset = 6
+
+[split.peripheral.matrix]
+row_pins = ["P0_28", "P0_31", "P0_30", "P0_17"]
+col_pins = ["P0_15", "P0_07", "P0_12", "P0_08", "P1_09", "P0_05"]
+col2row = true
+debouncer = "fast"
+
+[[split.peripheral.input_device.encoder]]
+pin_a = "P0_22"
+pin_b = "P1_00"
+phase = "resolution"
+resolution = 3
+internal_pullup = true
+
+[rmk]
+split_peripherals_num = 1
+# debounce_time = 5
+mouse_wheel_interval = 40
+
+# [storage]
+# enabled = true
+# clear_storage = true
